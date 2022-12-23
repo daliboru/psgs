@@ -2,8 +2,7 @@ import { Button } from "@rneui/themed";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-const url =
-  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyCoz_zW9H7VTSQ2Zy0HxP83-rnz-RmkCkU&location=45.6144 20.0474&radius=200&keyword=rostilj&opennow";
+const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.GOOGLE_MAPS_KEY}&location=45.6144 20.0474&radius=200&keyword=rostilj&opennow`;
 
 const buttons = [
   {
