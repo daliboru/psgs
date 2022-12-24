@@ -13,9 +13,9 @@ export type TextInputRef = TextInput;
 const InputComponent = forwardRef<TextInputRef, Props>((props, ref) => {
   const { control, name } = props;
   const { field } = useController({
-    control: control,
+    control,
     defaultValue: "",
-    name: name,
+    name,
   });
 
   return (
@@ -23,6 +23,7 @@ const InputComponent = forwardRef<TextInputRef, Props>((props, ref) => {
       ref={ref}
       onChangeText={field.onChange}
       value={field.value}
+      errorStyle={{ color: "red" }}
       {...props}
     />
   );

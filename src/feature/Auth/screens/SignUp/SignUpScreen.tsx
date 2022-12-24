@@ -1,30 +1,27 @@
-import { Button } from "@rneui/themed";
+import { Text } from "@rneui/themed";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { googleSignIn } from "../../../../api/auth";
-import { Input } from "../../../../components";
+import { Button, Input, TextInputRef } from "../../../../components";
 
-type formData = {
+interface IFormData {
   username: string;
   password: string;
   repeatPassword: string;
-};
+}
 
-type Props = {};
-
-const SignUpScreen = (props: Props) => {
+const SignUpScreen = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const ref = useRef<TextInput>(null);
-  const onSubmit = (data: any) => console.log(data);
+  } = useForm<IFormData>();
+  const ref = useRef<TextInputRef>(null);
+  const onSubmit = (data: IFormData) => console.log({ data, errors });
 
   return (
     <View style={styles.contentView}>
-      {/* sign up form */}
       <Input
         name="username"
         placeholder="username"
@@ -36,23 +33,20 @@ const SignUpScreen = (props: Props) => {
         placeholder="password"
         ref={ref}
         control={control}
+        passwordRules="required: lower; required: upper; required: digit; minlength: 8;"
+        secureTextEntry
       />
       <Input
-        placeholder="repeatPassword"
-        name="repeat password"
-        errorMessage="password doesn't match"
-        errorStyle={{ color: "red" }}
-        renderErrorMessage={false}
+        placeholder="repeat password"
+        name="repeatPassword"
         control={control}
         ref={ref}
+        passwordRules="required: lower; required: upper; required: digit; minlength: 8; "
+        secureTextEntry
       />
-      <Button
-        title="Sign Up"
-        onPress={handleSubmit(onSubmit)}
-        containerStyle={{ marginVertical: 10 }}
-      />
-
       <View style={styles.buttonsContainer}>
+        <Button title="Sign Up" onPress={handleSubmit(onSubmit)} />
+        <Text>or</Text>
         <Button
           onPress={googleSignIn}
           iconPosition="left"
@@ -63,19 +57,7 @@ const SignUpScreen = (props: Props) => {
             color: "white",
           }}
           iconContainerStyle={{ marginRight: 10 }}
-          titleStyle={{ fontWeight: "500" }}
           title={"Login with Google"}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-          buttonStyle={{
-            backgroundColor: "black",
-            borderColor: "transparent",
-            borderWidth: 0,
-            borderRadius: 30,
-          }}
         />
       </View>
     </View>
@@ -87,13 +69,11 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   contentView: {
     flex: 1,
+    marginTop: 20,
   },
   buttonsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
     marginVertical: 20,
   },
 });

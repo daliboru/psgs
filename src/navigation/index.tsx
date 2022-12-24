@@ -26,6 +26,9 @@ export default function Navigation() {
               <Stack.Screen
                 name={RootScreens.REGISTER}
                 component={SignUpScreen}
+                options={{
+                  headerTitle: "Sign Up",
+                }}
               />
             </Stack.Group>
           )}
