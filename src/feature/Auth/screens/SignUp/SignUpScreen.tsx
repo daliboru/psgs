@@ -1,11 +1,11 @@
 import { Text } from "@rneui/themed";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { googleSignIn } from "../../../../api/auth";
-import { Button, Input, TextInputRef } from "../../../../components";
+import { Button, Input } from "../../../../components";
 
-interface IFormData {
+interface FormValues {
   username: string;
   password: string;
   repeatPassword: string;
@@ -16,9 +16,9 @@ const SignUpScreen = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>();
-  const ref = useRef<TextInputRef>(null);
-  const onSubmit = (data: IFormData) => console.log({ data, errors });
+  } = useForm<FormValues>();
+  const ref = useRef<TextInput>(null);
+  const onSubmit = (data: FormValues) => console.log({ data, errors });
 
   return (
     <View style={styles.contentView}>
@@ -65,6 +65,7 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
+export { FormValues as RegisterFormValues };
 
 const styles = StyleSheet.create({
   contentView: {
