@@ -1,6 +1,8 @@
+import { Text } from "@rneui/themed";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Alert, StyleSheet, TextInput, View } from "react-native";
+import { googleSignIn } from "../../../../api/auth";
 import { Button, Input } from "../../../../components";
 import { supabase } from "../../../../supebase";
 
@@ -27,9 +29,6 @@ const LoginScreen = () => {
 
     if (error) Alert.alert(error.message);
     setLoading(false);
-    if (data) {
-      console.log("data", data);
-    }
   }
 
   const onSubmit = (data: FormValues) => {
@@ -53,7 +52,7 @@ const LoginScreen = () => {
           disabled={loading}
           loading={loading}
         />
-        {/* <Text>or</Text>
+        <Text>or</Text>
         <Button
           onPress={googleSignIn}
           iconPosition="left"
@@ -66,7 +65,7 @@ const LoginScreen = () => {
           iconContainerStyle={{ marginRight: 10 }}
           title={"Login with Google"}
           disabled={loading}
-        /> */}
+        />
       </View>
     </View>
   );

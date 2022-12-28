@@ -108,7 +108,7 @@ const SignUpScreen = ({ navigation }: Props) => {
           disabled={loading}
           loading={loading}
         />
-        {/* <Text>or</Text>
+        <Text>or</Text>
         <Button
           onPress={googleSignIn}
           iconPosition="left"
@@ -121,7 +121,7 @@ const SignUpScreen = ({ navigation }: Props) => {
           iconContainerStyle={{ marginRight: 10 }}
           title={"Login with Google"}
           disabled={loading}
-        /> */}
+        />
         <Button.Clear
           title="Already have an account?"
           onPress={() => navigation.navigate(Screens.LOGIN)}

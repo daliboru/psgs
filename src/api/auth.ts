@@ -6,15 +6,20 @@ export const googleSignIn = async () => {
     path: "/auth/callback",
   });
 
+  console.log(redirectUrl);
+
   const authResponse = await startAsync({
     authUrl: `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${redirectUrl}`,
     returnUrl: redirectUrl,
   });
 
   if (authResponse.type === "success") {
-    supabase.auth.setSession({
-      access_token: authResponse.params.access_token,
-      refresh_token: authResponse.params.refresh_token,
-    });
+    try {
+      const { access_token, refresh_token } = authResponse.params;
+      global.Buffer = require("buffer").Buffer;
+      await supabase.auth.setSession({ access_token, refresh_token });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
