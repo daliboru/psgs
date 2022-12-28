@@ -5,7 +5,7 @@ import RangeSlider from "../components/RangeSlider/RangeSlider";
 import Screens from "../navigation/screenEnums";
 import { ChooseFoodStackScreenProps } from "../navigation/types";
 
-type Props = ChooseFoodStackScreenProps<Screens.SIGNED_IN>;
+type Props = ChooseFoodStackScreenProps<Screens.CHOOSE_FOOD>;
 
 export default function ChooseFoodScreen(props: Props) {
   return (

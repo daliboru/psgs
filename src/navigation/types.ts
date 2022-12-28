@@ -3,7 +3,7 @@ import Screens from "./screenEnums";
 
 export type RootStackParamList = {
   [Screens.SIGNED_IN]: undefined;
-  [Screens.REGISTER]: undefined;
+  [Screens.SIGN_UP]: undefined;
   [Screens.LOGIN]: undefined;
   [Screens.ERROR]: { error: string };
   [Screens.NOT_FOUND]: undefined;

@@ -7,27 +7,41 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import ErrorBoundary from "./error-boundary";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RootScreens, RootStackParamList } from "./types";
-import { SignUpScreen } from "../feature/Auth/screens";
+import { LoginScreen, SignUpScreen } from "../feature/Auth";
 import { ErrorScreen, NotFoundScreen } from "../screens";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigation() {
-  const user = useCurrentUser();
+  const session = useCurrentUser();
 
   return (
     <ErrorBoundary>
       <NavigationContainer linking={LinkingConfiguration}>
         <Stack.Navigator>
-          {user ? (
-            <SignedInNavigation />
+          {session && session.user ? (
+            <Stack.Screen
+              key={session.user.id}
+              name={RootScreens.SIGNED_IN}
+              component={SignedInNavigation}
+              options={{
+                headerShown: false,
+              }}
+            />
           ) : (
             <Stack.Group>
               <Stack.Screen
-                name={RootScreens.REGISTER}
+                name={RootScreens.SIGN_UP}
                 component={SignUpScreen}
                 options={{
                   headerTitle: "Sign Up",
+                }}
+              />
+              <Stack.Screen
+                name={RootScreens.LOGIN}
+                component={LoginScreen}
+                options={{
+                  headerTitle: "Login",
                 }}
               />
             </Stack.Group>

@@ -1,5 +1,3 @@
-import { supabase } from "../../lib/supabase";
-
-const supabaseUrl = "https://fbtecvrgiqmemuulvyfa.supabase.co";
+import { supabase, supabaseUrl } from "../../lib/supabase";
 
 export { supabase, supabaseUrl };

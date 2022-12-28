@@ -1,2 +1,2 @@
-export { default } from "./screens";
-export type { RegisterFormValues } from "./screens";
+export { SignUpScreen, RegisterFormValues } from "./screens";
+export { LoginScreen, LoginFormValues } from "./screens";

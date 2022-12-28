@@ -11,7 +11,7 @@ export default function ChooseFoodNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={Screens.SIGNED_IN}
+        name={Screens.CHOOSE_FOOD}
         component={ChooseFoodScreen}
         options={{
           header: () => <Header />,

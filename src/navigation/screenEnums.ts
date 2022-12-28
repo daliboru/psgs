@@ -1,5 +1,5 @@
 enum Screens {
-  REGISTER = "register",
+  SIGN_UP = "signUp",
   LOGIN = "login",
   SIGNED_IN = "signedIn",
   ERROR = "error",

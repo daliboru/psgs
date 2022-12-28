@@ -21,4 +21,21 @@ const ButtonComponent = (props: ButtonProps) => {
   );
 };
 
+const Clear = (props: ButtonProps) => {
+  return (
+    <Button
+      titleStyle={{ fontWeight: "500", fontSize: 16 }}
+      containerStyle={{
+        width: 300,
+        marginHorizontal: 50,
+        marginVertical: 10,
+      }}
+      type="clear"
+      {...props}
+    />
+  );
+};
+
+ButtonComponent.Clear = Clear;
+
 export default ButtonComponent;
