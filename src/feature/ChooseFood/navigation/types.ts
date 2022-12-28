@@ -3,6 +3,7 @@ import Screens from "./screenEnums";
 
 export type ChooseFoodStackParamList = {
   [Screens.CHOOSE_FOOD]: undefined;
+  [Screens.ACCOUNT]: undefined;
 };
 
 export type ChooseFoodStackScreenProps<

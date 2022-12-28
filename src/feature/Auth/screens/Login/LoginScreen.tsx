@@ -53,19 +53,7 @@ const LoginScreen = () => {
           loading={loading}
         />
         <Text>or</Text>
-        <Button
-          onPress={googleSignIn}
-          iconPosition="left"
-          icon={{
-            name: "logo-google",
-            type: "ionicon",
-            size: 15,
-            color: "white",
-          }}
-          iconContainerStyle={{ marginRight: 10 }}
-          title={"Login with Google"}
-          disabled={loading}
-        />
+        <Button.Google disabled={loading} />
       </View>
     </View>
   );
