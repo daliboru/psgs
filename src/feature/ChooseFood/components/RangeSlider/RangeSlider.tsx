@@ -1,18 +1,22 @@
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React, { useState } from "react";
-import { Slider } from "@rneui/themed";
+import { Slider, Text } from "@rneui/themed";
 import { Icon } from "../../../../components";
 
-type Props = {};
+type Props = {
+  range: number;
+  onSetRange: (range: number) => void;
+};
 
-const RangeSlider = (props: Props) => {
-  const [range, setRange] = useState(100);
-
+const RangeSlider = ({ range, onSetRange }: Props) => {
   return (
     <View style={{ marginVertical: 20, marginHorizontal: 20 }}>
+      <Text h4 style={{ marginBottom: 10 }}>
+        Range: {range}
+      </Text>
       <Slider
         value={range}
-        onValueChange={setRange}
+        onValueChange={onSetRange}
         minimumValue={100}
         maximumValue={2000}
         step={50}

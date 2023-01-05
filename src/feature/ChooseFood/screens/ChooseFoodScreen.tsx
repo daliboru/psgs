@@ -1,18 +1,52 @@
-import React from "react";
-import { ScrollView } from "react-native";
-import { ViewContainer } from "../../../components";
-import FoodCategories from "../components/FoodCategories";
-import Screens from "../navigation/screenEnums";
-import { ChooseFoodStackScreenProps } from "../navigation/types";
+import { Text } from "@rneui/themed";
+import React, { useState } from "react";
+import { Linking, ScrollView } from "react-native";
+import { Button, ViewContainer } from "../../../components";
+import useCurrentLocation from "../../../hooks/useCurrentLocation";
+import { FoodCategories, RangeSlider } from "../components";
+import {
+  ChooseFoodScreens,
+  ChooseFoodStackScreenProps,
+} from "../navigation/chooseFood/types";
 
-type Props = ChooseFoodStackScreenProps<Screens.CHOOSE_FOOD>;
+type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.FOOD_CATEGORIES>;
 
-export default function ChooseFoodScreen(props: Props) {
+export default function ChooseFoodScreen({ navigation }: Props) {
+  const [range, setRange] = useState(100);
+  const {
+    location: { latitude, longitude },
+    status,
+    isLoading,
+  } = useCurrentLocation();
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  const onSetRange = (range: number) => {
+    setRange(range);
+  };
+
+  const onChooseFood = (foodType: string) => {
+    navigation.navigate(ChooseFoodScreens.LIST_OF_FOOD_PLACES, {
+      latitude,
+      longitude,
+      range,
+      foodType,
+    });
+  };
+
   return (
     <ScrollView>
       <ViewContainer>
-        {/* <RangeSlider /> */}
-        <FoodCategories />
+        {status !== "granted" && (
+          <Button.Clear
+            title="Enable location"
+            onPress={Linking.openSettings}
+          />
+        )}
+        <RangeSlider range={range} onSetRange={onSetRange} />
+        <FoodCategories onChooseFood={onChooseFood} />
       </ViewContainer>
     </ScrollView>
   );

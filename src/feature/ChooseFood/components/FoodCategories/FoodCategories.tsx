@@ -1,9 +1,11 @@
-import { Button } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import useCurrentLocation from "../../../../hooks/useCurrentLocation";
+import { Button } from "../../../../components";
 
-const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.GOOGLE_MAPS_KEY}&location=45.6144 20.0474&radius=200&keyword=rostilj&opennow`;
+type Props = {
+  onChooseFood: (foodType: string) => void;
+};
 
 const buttons = [
   {
@@ -54,11 +56,7 @@ const buttons = [
   },
 ];
 
-export default function FoodCategories() {
-  const {location} = useCurrentLocation();
-
-  console.log(location);
-  
+export default function FoodCategories({ onChooseFood }: Props) {
   return (
     <View style={styles.buttonsContainer}>
       {buttons.map(({ title, icon }, index) => (
@@ -72,6 +70,7 @@ export default function FoodCategories() {
           titleStyle={{ fontWeight: "bold", fontSize: 30 }}
           iconPosition="top"
           iconContainerStyle={{ marginBottom: 10 }}
+          onPress={() => onChooseFood(title)}
         />
       ))}
     </View>

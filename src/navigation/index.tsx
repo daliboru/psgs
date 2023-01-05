@@ -4,7 +4,7 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { LoginScreen, SignUpScreen } from "../feature/Auth";
-import SignedInNavigation from "../feature/ChooseFood/navigation";
+import SignedInNavigation from "../feature/ChooseFood/navigation/signedIn";
 import useSession from "../hooks/useSession";
 import { ErrorScreen, NotFoundScreen } from "../screens";
 import ErrorBoundary from "./error-boundary";

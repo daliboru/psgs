@@ -1,25 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   getCurrentPositionAsync,
+  PermissionStatus,
   requestForegroundPermissionsAsync,
 } from "expo-location";
-import { useEffect } from "react";
 
 async function getCurrentLocation() {
   try {
     const { status } = await requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      throw new Error("Location permission not granted");
+    if (status !== PermissionStatus.GRANTED) {
+      throw new Error("Permission to access location was denied");
     }
     const location = await getCurrentPositionAsync({});
-    return location;
+    return { location, status: PermissionStatus.GRANTED };
   } catch (error) {
     console.log(error);
   }
 }
 
 export default function useCurrentLocation() {
-  const { isLoading, data, refetch, isError } = useQuery(
+  const { isLoading, data } = useQuery(
     ["currentLocation"],
     getCurrentLocation,
     {
@@ -27,16 +27,12 @@ export default function useCurrentLocation() {
     }
   );
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
   return {
     isLoading,
     location: {
-      latitude: data?.coords.latitude || 0,
-      longitude: data?.coords.longitude || 0,
+      latitude: data?.location.coords.latitude || NaN,
+      longitude: data?.location.coords.longitude || NaN,
     },
-    isError,
+    status: data?.status,
   };
 }
