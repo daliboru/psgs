@@ -1,19 +1,19 @@
 import { NavigationContainer } from "@react-navigation/native";
 import LinkingConfiguration from "./LinkingConfiguration";
 
-import React from "react";
-import SignedInNavigation from "../feature/ChooseFood/navigation";
-import useCurrentUser from "../hooks/useCurrentUser";
-import ErrorBoundary from "./error-boundary";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RootScreens, RootStackParamList } from "./types";
+import React from "react";
 import { LoginScreen, SignUpScreen } from "../feature/Auth";
+import SignedInNavigation from "../feature/ChooseFood/navigation";
+import useSession from "../hooks/useSession";
 import { ErrorScreen, NotFoundScreen } from "../screens";
+import ErrorBoundary from "./error-boundary";
+import { RootScreens, RootStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Navigation() {
-  const session = useCurrentUser();
+  const session = useSession();
 
   return (
     <ErrorBoundary>

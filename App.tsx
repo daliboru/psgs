@@ -1,4 +1,5 @@
 import { createTheme, lightColors, ThemeProvider } from "@rneui/themed";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -20,13 +21,17 @@ const theme = createTheme({
   // },
 });
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        <StatusBar />
-        <Navigation />
-      </ThemeProvider>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
+        <ThemeProvider theme={theme}>
+          <StatusBar />
+          <Navigation />
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
 }

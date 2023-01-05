@@ -21,7 +21,7 @@ export default function ChooseFoodNavigator() {
           } else {
             iconName = "";
           }
-          return <Icon name={iconName} color={color} />;
+          return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: "black",
         tabBarInactiveTintColor: "gray",

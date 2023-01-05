@@ -1,24 +1,18 @@
-import { Session } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supebase";
 
+async function getCurrentUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
+}
+
 export default function useCurrentUser() {
-  const [session, setSession] = useState<Session | null>(null);
+  const { isLoading, data } = useQuery(["currentUser"], getCurrentUser, {
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
 
-  useEffect(() => {
-    supabase.auth
-      .getSession()
-      .then(({ data: { session } }) => {
-        setSession(session);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
-
-  return session || null;
+  return { isLoading, user: data };
 }

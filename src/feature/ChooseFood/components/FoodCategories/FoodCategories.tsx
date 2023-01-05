@@ -1,6 +1,7 @@
 import { Button } from "@rneui/themed";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import useCurrentLocation from "../../../../hooks/useCurrentLocation";
 
 const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.GOOGLE_MAPS_KEY}&location=45.6144 20.0474&radius=200&keyword=rostilj&opennow`;
 
@@ -54,6 +55,10 @@ const buttons = [
 ];
 
 export default function FoodCategories() {
+  const {location} = useCurrentLocation();
+
+  console.log(location);
+  
   return (
     <View style={styles.buttonsContainer}>
       {buttons.map(({ title, icon }, index) => (

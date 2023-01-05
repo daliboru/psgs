@@ -1,5 +1,6 @@
 import { makeRedirectUri, startAsync } from "expo-auth-session";
 import { supabase, supabaseUrl } from "../supebase";
+global.Buffer = require("buffer").Buffer;
 
 export const googleSignIn = async () => {
   const redirectUrl = makeRedirectUri({
@@ -13,7 +14,6 @@ export const googleSignIn = async () => {
 
   if (authResponse.type === "success") {
     const { access_token, refresh_token } = authResponse.params;
-    global.Buffer = require("buffer").Buffer;
     await supabase.auth.setSession({ access_token, refresh_token });
   }
 };
