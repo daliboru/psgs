@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator<SignedInTabParamList>();
 export default function SignedInNavigation() {
   return (
     <Tab.Navigator
+      initialRouteName={SignedInScreens.CHOOSE_FOOD}
       screenOptions={({ route }) => ({
         header: () => <Header />,
         tabBarIcon: ({ focused, color, size }) => {
@@ -30,14 +31,12 @@ export default function SignedInNavigation() {
       <Tab.Screen
         name={SignedInScreens.CHOOSE_FOOD}
         component={ChooseFoodNavigation}
-        // options={{
-        //   headerShown: false,
-        // }}
+        options={{ title: "Biraj hranu" }}
       />
       <Tab.Screen
         name={SignedInScreens.ACCOUNT}
         component={AccountScreen}
-        options={{ title: "Account" }}
+        options={{ title: "Profil" }}
       />
     </Tab.Navigator>
   );

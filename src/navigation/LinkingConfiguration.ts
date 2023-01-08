@@ -31,6 +31,9 @@ const linking: LinkingOptions<RootStackParamList> = {
       [RootScreens.LOGIN]: "login",
       [RootScreens.ERROR]: "error",
       [RootScreens.NOT_FOUND]: "*",
+
+      //   [RootScreens.PRIVACY_POLICY]: "privacyPolicy",
+      //   [RootScreens.TERMS_OF_USE]: "termsOfUse",
     },
   },
 };

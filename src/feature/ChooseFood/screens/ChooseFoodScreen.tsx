@@ -12,7 +12,7 @@ import {
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.FOOD_CATEGORIES>;
 
 export default function ChooseFoodScreen({ navigation }: Props) {
-  const [range, setRange] = useState(100);
+  const [range, setRange] = useState(2000);
   const {
     location: { latitude, longitude },
     status,
@@ -45,7 +45,7 @@ export default function ChooseFoodScreen({ navigation }: Props) {
             onPress={Linking.openSettings}
           />
         )}
-        <RangeSlider range={range} onSetRange={onSetRange} />
+        {/* <RangeSlider range={range} onSetRange={onSetRange} /> */}
         <FoodCategories onChooseFood={onChooseFood} />
       </ViewContainer>
     </ScrollView>

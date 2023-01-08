@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Header } from "../../../../components";
 import { ChooseFoodScreen, ListOfPlaces } from "../../screens";
 import { ChooseFoodScreens, ChooseFoodStackParamList } from "./types";
 
@@ -6,7 +7,7 @@ const Stack = createNativeStackNavigator<ChooseFoodStackParamList>();
 
 export default function ChooseFoodNavigation() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name={ChooseFoodScreens.FOOD_CATEGORIES}
         component={ChooseFoodScreen}

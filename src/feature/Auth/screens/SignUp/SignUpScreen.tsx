@@ -2,15 +2,7 @@ import { URL } from "@env";
 import { Text } from "@rneui/themed";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Alert,
-  StyleSheet,
-  TextInput,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { googleSignIn } from "../../../../api/auth";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 import { Button, Input } from "../../../../components";
 import Screens from "../../../../navigation/screenEnums";
 import { RootStackScreenProps } from "../../../../navigation/types";

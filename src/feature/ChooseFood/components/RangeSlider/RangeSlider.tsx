@@ -12,7 +12,7 @@ const RangeSlider = ({ range, onSetRange }: Props) => {
   return (
     <View style={{ marginVertical: 20, marginHorizontal: 20 }}>
       <Text h4 style={{ marginBottom: 10 }}>
-        Range: {range}
+        Udaljenost: {range}
       </Text>
       <Slider
         value={range}

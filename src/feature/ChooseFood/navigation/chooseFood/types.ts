@@ -1,4 +1,6 @@
+import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { SignedInTabParamList } from "../signedIn/types";
 import Screens from "./screenEnums";
 
 export type ChooseFoodStackParamList = {
@@ -13,6 +15,9 @@ export type ChooseFoodStackParamList = {
 
 export type ChooseFoodStackScreenProps<
   Screen extends keyof ChooseFoodStackParamList
-> = NativeStackScreenProps<ChooseFoodStackParamList, Screen>;
+> = CompositeScreenProps<
+  NativeStackScreenProps<ChooseFoodStackParamList, Screen>,
+  NativeStackScreenProps<SignedInTabParamList>
+>;
 
 export { Screens, Screens as ChooseFoodScreens };
