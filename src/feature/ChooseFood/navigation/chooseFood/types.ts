@@ -4,11 +4,11 @@ import { SignedInTabParamList } from "../signedIn/types";
 import Screens from "./screenEnums";
 
 export type ChooseFoodStackParamList = {
-  [Screens.EATING_OPTIONS]: undefined;
-  [Screens.FOOD_CATEGORIES]: {
-    eatingOption: string;
+  [Screens.WHO_EATS]: undefined;
+  [Screens.WHAT_EATS]: {
+    eatsInGroup: boolean;
   };
-  [Screens.LIST_OF_FOOD_PLACES]: {
+  [Screens.LIST_OF_EATS]: {
     latitude: number;
     longitude: number;
     foodType?: string;

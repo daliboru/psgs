@@ -10,6 +10,7 @@ import { Button } from "../../../../components";
 
 type Props = {
   onChooseFood: (foodType?: string) => void;
+  eatsInGroup: boolean;
 };
 
 const buttons = [
@@ -51,7 +52,7 @@ const buttons = [
   },
 ];
 
-export default function FoodCategories({ onChooseFood }: Props) {
+export default function FoodCategories({ onChooseFood, eatsInGroup }: Props) {
   return (
     <>
       <Button
@@ -62,17 +63,21 @@ export default function FoodCategories({ onChooseFood }: Props) {
           marginHorizontal: 5,
         }}
       />
-      <View style={styles.buttonsContainer}>
-        {buttons.map(({ title, image, optionName }, index) => (
-          <FoodButton
-            key={index}
-            title={title}
-            image={image}
-            optionName={optionName}
-            onChooseFood={onChooseFood}
-          />
-        ))}
-      </View>
+      {eatsInGroup ? (
+        <Text>{"Group food"}</Text>
+      ) : (
+        <View style={styles.buttonsContainer}>
+          {buttons.map(({ title, image, optionName }, index) => (
+            <FoodButton
+              key={index}
+              title={title}
+              image={image}
+              optionName={optionName}
+              onChooseFood={onChooseFood}
+            />
+          ))}
+        </View>
+      )}
     </>
   );
 }
@@ -109,9 +114,6 @@ const FoodButton = ({
 };
 
 const styles = StyleSheet.create({
-  contentView: {
-    flex: 1,
-  },
   buttonsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -136,7 +138,6 @@ const styles = StyleSheet.create({
   },
   imageItem: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-
     height: 250,
     aspectRatio: 1,
     width: "100%",

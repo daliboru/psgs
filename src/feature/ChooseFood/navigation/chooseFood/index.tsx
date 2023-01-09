@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ChooseFoodScreen, ListOfPlaces } from "../../screens";
-import EatingOptions from "../../screens/EatingOptionsScreen";
+import { ListOfEatsScreen, WhatEatsScreen, WhoEatsScreen } from "../../screens";
 import { ChooseFoodScreens, ChooseFoodStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<ChooseFoodStackParamList>();
@@ -9,18 +8,18 @@ export default function ChooseFoodNavigation() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={ChooseFoodScreens.EATING_OPTIONS}
-        component={EatingOptions}
+        name={ChooseFoodScreens.WHO_EATS}
+        component={WhoEatsScreen}
         options={{ title: "Ko sve jede?" }}
       />
       <Stack.Screen
-        name={ChooseFoodScreens.FOOD_CATEGORIES}
-        component={ChooseFoodScreen}
+        name={ChooseFoodScreens.WHAT_EATS}
+        component={WhatEatsScreen}
         options={{ title: "Šta hasaš?" }}
       />
       <Stack.Screen
-        name={ChooseFoodScreens.LIST_OF_FOOD_PLACES}
-        component={ListOfPlaces}
+        name={ChooseFoodScreens.LIST_OF_EATS}
+        component={ListOfEatsScreen}
         options={{ title: "Ovo su opcije" }}
       />
     </Stack.Navigator>

@@ -4,9 +4,7 @@ import { ChooseFoodStackParamList } from "../chooseFood/types";
 import Screens from "./screenEnums";
 
 export type SignedInTabParamList = {
-  [Screens.CHOOSE_FOOD]:
-    | NavigatorScreenParams<ChooseFoodStackParamList>
-    | undefined;
+  [Screens.CHOOSE_FOOD]: NavigatorScreenParams<ChooseFoodStackParamList>;
   [Screens.ACCOUNT]: undefined;
 };
 

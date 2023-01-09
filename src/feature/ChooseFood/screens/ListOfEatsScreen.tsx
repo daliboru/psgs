@@ -10,9 +10,9 @@ import {
   ChooseFoodStackScreenProps,
 } from "../navigation/chooseFood/types";
 
-type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.LIST_OF_FOOD_PLACES>;
+type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.LIST_OF_EATS>;
 
-const ListOfPlaces = ({ route }: Props) => {
+export default function ListOfEatsScreen({ route }: Props) {
   const { latitude, longitude, foodType } = route.params;
   const { location } = useCurrentLocation();
   const url = getUrl(latitude, longitude, foodType);
@@ -49,7 +49,7 @@ const ListOfPlaces = ({ route }: Props) => {
       </ViewContainer>
     </ScrollView>
   );
-};
+}
 
 const nearBySearchUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${GOOGLE_MAPS_KEY}&rankby=distance&opennow`;
 
@@ -78,5 +78,3 @@ const takeMeToFood = async (location: string) => {
     }
   }
 };
-
-export default ListOfPlaces;

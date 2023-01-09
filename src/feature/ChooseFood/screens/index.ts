@@ -1,3 +1,4 @@
-export { default as ChooseFoodScreen } from "./ChooseFoodScreen";
+export { default as WhatEatsScreen } from "./WhatEatsScreen";
 export { default as AccountScreen } from "./AccountScreen";
-export { default as ListOfPlaces } from "./ListOfPlacesScreen";
+export { default as ListOfEatsScreen } from "./ListOfEatsScreen";
+export { default as WhoEatsScreen } from "./WhoEatsScreen";

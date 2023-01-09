@@ -12,7 +12,6 @@ export default function SignedInNavigation() {
     <Tab.Navigator
       initialRouteName={SignedInScreens.CHOOSE_FOOD}
       screenOptions={({ route }) => ({
-        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: string;
           if (route.name === SignedInScreens.CHOOSE_FOOD) {
@@ -31,7 +30,7 @@ export default function SignedInNavigation() {
       <Tab.Screen
         name={SignedInScreens.CHOOSE_FOOD}
         component={ChooseFoodNavigation}
-        options={{ title: "Daj hranu" }}
+        options={{ title: "Daj hranu", headerShown: false }}
       />
       <Tab.Screen
         name={SignedInScreens.ACCOUNT}

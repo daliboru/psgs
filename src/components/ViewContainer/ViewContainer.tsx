@@ -12,7 +12,7 @@ const ViewContainer = ({ children }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 5,
+    margin: 10,
   },
 });
 

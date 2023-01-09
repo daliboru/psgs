@@ -1,6 +1,6 @@
 import { Text } from "@rneui/themed";
-import React, { useState } from "react";
-import { Linking, ScrollView } from "react-native";
+import React from "react";
+import { Linking, ScrollView, View } from "react-native";
 import { Button, ViewContainer } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import { FoodCategories } from "../components";
@@ -9,10 +9,10 @@ import {
   ChooseFoodStackScreenProps,
 } from "../navigation/chooseFood/types";
 
-type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.FOOD_CATEGORIES>;
+type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS>;
 
-export default function ChooseFoodScreen({ navigation, route }: Props) {
-  const { eatingOption } = route.params;
+export default function WhatEatsScreen({ navigation, route }: Props) {
+  const { eatsInGroup } = route.params;
   const {
     location: { latitude, longitude },
     status,
@@ -24,7 +24,7 @@ export default function ChooseFoodScreen({ navigation, route }: Props) {
   }
 
   const onChooseFood = (foodType?: string) => {
-    navigation.navigate(ChooseFoodScreens.LIST_OF_FOOD_PLACES, {
+    navigation.navigate(ChooseFoodScreens.LIST_OF_EATS, {
       latitude,
       longitude,
       foodType,
@@ -33,19 +33,15 @@ export default function ChooseFoodScreen({ navigation, route }: Props) {
 
   return (
     <ScrollView>
-      <ViewContainer>
+      <View style={{ margin: 5 }}>
         {status !== "granted" && (
           <Button.Clear
             title="Enable location"
             onPress={Linking.openSettings}
           />
         )}
-        {eatingOption === "individual" ? (
-          <FoodCategories onChooseFood={onChooseFood} />
-        ) : (
-          <Text>{"Group food"}</Text>
-        )}
-      </ViewContainer>
+        <FoodCategories onChooseFood={onChooseFood} eatsInGroup={eatsInGroup} />
+      </View>
     </ScrollView>
   );
 }

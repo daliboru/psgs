@@ -1,8 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import useCurrentUser from "../../../hooks/useCurrentUser";
-import { Text } from "@rneui/themed";
-import { ViewContainer } from "../../../components";
+import { Avatar, ListItem, Text } from "@rneui/themed";
+import { Icon, ViewContainer } from "../../../components";
 
 type Props = {};
 
@@ -14,7 +14,12 @@ const AccountScreen = (props: Props) => {
       {user && (
         <ViewContainer>
           <View style={styles.container}>
-            <Text>Full Name: {user.user_metadata.full_name}</Text>
+            <Avatar
+              rounded
+              title={[...user.user_metadata.full_name][0]}
+              containerStyle={{ backgroundColor: "grey" }}
+            />
+            <Text>{user.user_metadata.full_name}</Text>
           </View>
         </ViewContainer>
       )}
@@ -24,8 +29,8 @@ const AccountScreen = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    margin: 5,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

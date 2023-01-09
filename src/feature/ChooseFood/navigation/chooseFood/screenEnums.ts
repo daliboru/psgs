@@ -1,7 +1,7 @@
 enum Screens {
-  FOOD_CATEGORIES = "foodCategories",
-  LIST_OF_FOOD_PLACES = "listOfFoodPlaces",
-  EATING_OPTIONS = "eatingOptions",
+  WHAT_EATS = "whatEats",
+  LIST_OF_EATS = "listOfEats",
+  WHO_EATS = "whoEats",
 }
 
 export default Screens;

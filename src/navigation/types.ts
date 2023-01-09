@@ -10,7 +10,7 @@ declare global {
 }
 
 export type RootStackParamList = {
-  [Screens.SIGNED_IN]: NavigatorScreenParams<SignedInTabParamList> | undefined;
+  [Screens.SIGNED_IN]: NavigatorScreenParams<SignedInTabParamList>;
   [Screens.SIGN_UP]: undefined;
   [Screens.LOGIN]: undefined;
   [Screens.ERROR]: { error: string };
