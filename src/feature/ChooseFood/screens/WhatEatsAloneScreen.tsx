@@ -1,7 +1,7 @@
 import { Text } from "@rneui/themed";
 import React from "react";
 import { Linking, ScrollView, View } from "react-native";
-import { Button, ViewContainer } from "../../../components";
+import { Button } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import { FoodCategories } from "../components";
 import {
@@ -9,10 +9,9 @@ import {
   ChooseFoodStackScreenProps,
 } from "../navigation/chooseFood/types";
 
-type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS>;
+type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS_ALONE>;
 
-export default function WhatEatsScreen({ navigation, route }: Props) {
-  const { eatsInGroup } = route.params;
+export default function WhatEatsAloneScreen({ navigation, route }: Props) {
   const {
     location: { latitude, longitude },
     status,
@@ -33,14 +32,14 @@ export default function WhatEatsScreen({ navigation, route }: Props) {
 
   return (
     <ScrollView>
-      <View style={{ margin: 5 }}>
+      <View style={{ marginHorizontal: 5 }}>
         {status !== "granted" && (
           <Button.Clear
             title="Enable location"
             onPress={Linking.openSettings}
           />
         )}
-        <FoodCategories onChooseFood={onChooseFood} eatsInGroup={eatsInGroup} />
+        <FoodCategories onChooseFood={onChooseFood} />
       </View>
     </ScrollView>
   );

@@ -1,5 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ListOfEatsScreen, WhatEatsScreen, WhoEatsScreen } from "../../screens";
+import {
+  ListOfEatsScreen,
+  WhatEatsAloneScreen,
+  WhatEatsGroupScreen,
+  WhoEatsScreen,
+} from "../../screens";
 import { ChooseFoodScreens, ChooseFoodStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<ChooseFoodStackParamList>();
@@ -13,9 +18,14 @@ export default function ChooseFoodNavigation() {
         options={{ title: "Ko sve jede?" }}
       />
       <Stack.Screen
-        name={ChooseFoodScreens.WHAT_EATS}
-        component={WhatEatsScreen}
+        name={ChooseFoodScreens.WHAT_EATS_ALONE}
+        component={WhatEatsAloneScreen}
         options={{ title: "Šta hasaš?" }}
+      />
+      <Stack.Screen
+        name={ChooseFoodScreens.WHAT_EATS_GROUP}
+        component={WhatEatsGroupScreen}
+        options={{ title: "Šta hasa masa?" }}
       />
       <Stack.Screen
         name={ChooseFoodScreens.LIST_OF_EATS}

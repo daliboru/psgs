@@ -11,23 +11,18 @@ import {
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHO_EATS>;
 
 const WhoEatsScreen = ({ navigation }: Props) => {
-  const onPress = (eatsInGroup: boolean) => {
-    navigation.navigate(ChooseFoodScreens.WHAT_EATS, {
-      eatsInGroup,
-    });
-  };
   return (
     <ViewContainer>
       <View style={{ flexDirection: "row" }}>
         <WhoEatsButton
           iconName="person"
-          onPress={() => onPress(false)}
+          onPress={() => navigation.navigate(ChooseFoodScreens.WHAT_EATS_ALONE)}
           title={"Sam jedem"}
         />
         <Divider orientation="vertical" />
         <WhoEatsButton
           iconName="people"
-          onPress={() => onPress(true)}
+          onPress={() => navigation.navigate(ChooseFoodScreens.WHAT_EATS_GROUP)}
           title={"Više nas"}
         />
       </View>

@@ -1,4 +1,4 @@
-import { Image, Text } from "@rneui/themed";
+import { Divider, Image, Text } from "@rneui/themed";
 import React from "react";
 import {
   ActivityIndicator,
@@ -10,7 +10,6 @@ import { Button } from "../../../../components";
 
 type Props = {
   onChooseFood: (foodType?: string) => void;
-  eatsInGroup: boolean;
 };
 
 const buttons = [
@@ -52,7 +51,7 @@ const buttons = [
   },
 ];
 
-export default function FoodCategories({ onChooseFood, eatsInGroup }: Props) {
+export default function FoodCategories({ onChooseFood }: Props) {
   return (
     <>
       <Button
@@ -63,36 +62,35 @@ export default function FoodCategories({ onChooseFood, eatsInGroup }: Props) {
           marginHorizontal: 5,
         }}
       />
-      {eatsInGroup ? (
-        <Text>{"Group food"}</Text>
-      ) : (
-        <View style={styles.buttonsContainer}>
-          {buttons.map(({ title, image, optionName }, index) => (
-            <FoodButton
-              key={index}
-              title={title}
-              image={image}
-              optionName={optionName}
-              onChooseFood={onChooseFood}
-            />
-          ))}
-        </View>
-      )}
+      <Divider style={{ marginBottom: 5 }} />
+      <View style={styles.buttonsContainer}>
+        {buttons.map(({ title, image, optionName }, index) => (
+          <FoodButton
+            key={index}
+            title={title}
+            image={image}
+            optionName={optionName}
+            onChooseFood={onChooseFood}
+          />
+        ))}
+      </View>
     </>
   );
 }
+
+type FoodButtonProps = {
+  title: string;
+  image: string;
+  optionName: string;
+  onChooseFood: (foodType: string) => void;
+};
 
 const FoodButton = ({
   title,
   image,
   optionName,
   onChooseFood,
-}: {
-  title: string;
-  image: string;
-  optionName: string;
-  onChooseFood: (foodType: string) => void;
-}) => {
+}: FoodButtonProps) => {
   return (
     <TouchableOpacity
       style={styles.touchableContainer}

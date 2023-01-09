@@ -1,8 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { Avatar, Text } from "@rneui/themed";
 import React from "react";
+import { StyleSheet, View } from "react-native";
+import { ViewContainer } from "../../../components";
 import useCurrentUser from "../../../hooks/useCurrentUser";
-import { Avatar, ListItem, Text } from "@rneui/themed";
-import { Icon, ViewContainer } from "../../../components";
 
 type Props = {};
 
@@ -17,9 +17,16 @@ const AccountScreen = (props: Props) => {
             <Avatar
               rounded
               title={[...user.user_metadata.full_name][0]}
-              containerStyle={{ backgroundColor: "grey" }}
+              containerStyle={{
+                backgroundColor: `#${Math.floor(
+                  Math.random() * 16777215
+                ).toString(16)}`,
+              }}
+              size="large"
             />
-            <Text>{user.user_metadata.full_name}</Text>
+            <View style={{ marginTop: 10 }}>
+              <Text h4>{user.user_metadata.full_name}</Text>
+            </View>
           </View>
         </ViewContainer>
       )}
@@ -29,7 +36,6 @@ const AccountScreen = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     alignItems: "center",
   },
 });

@@ -5,9 +5,8 @@ import Screens from "./screenEnums";
 
 export type ChooseFoodStackParamList = {
   [Screens.WHO_EATS]: undefined;
-  [Screens.WHAT_EATS]: {
-    eatsInGroup: boolean;
-  };
+  [Screens.WHAT_EATS_ALONE]: undefined;
+  [Screens.WHAT_EATS_GROUP]: undefined;
   [Screens.LIST_OF_EATS]: {
     latitude: number;
     longitude: number;
