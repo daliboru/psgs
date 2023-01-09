@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Linking, ScrollView } from "react-native";
 import { Button, ViewContainer } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
-import { FoodCategories, RangeSlider } from "../components";
+import { FoodCategories } from "../components";
 import {
   ChooseFoodScreens,
   ChooseFoodStackScreenProps,
@@ -11,8 +11,8 @@ import {
 
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.FOOD_CATEGORIES>;
 
-export default function ChooseFoodScreen({ navigation }: Props) {
-  const [range, setRange] = useState(2000);
+export default function ChooseFoodScreen({ navigation, route }: Props) {
+  const { eatingOption } = route.params;
   const {
     location: { latitude, longitude },
     status,
@@ -23,15 +23,10 @@ export default function ChooseFoodScreen({ navigation }: Props) {
     return <Text>Loading...</Text>;
   }
 
-  const onSetRange = (range: number) => {
-    setRange(range);
-  };
-
-  const onChooseFood = (foodType: string) => {
+  const onChooseFood = (foodType?: string) => {
     navigation.navigate(ChooseFoodScreens.LIST_OF_FOOD_PLACES, {
       latitude,
       longitude,
-      range,
       foodType,
     });
   };
@@ -45,8 +40,11 @@ export default function ChooseFoodScreen({ navigation }: Props) {
             onPress={Linking.openSettings}
           />
         )}
-        {/* <RangeSlider range={range} onSetRange={onSetRange} /> */}
-        <FoodCategories onChooseFood={onChooseFood} />
+        {eatingOption === "individual" ? (
+          <FoodCategories onChooseFood={onChooseFood} />
+        ) : (
+          <Text>{"Group food"}</Text>
+        )}
       </ViewContainer>
     </ScrollView>
   );

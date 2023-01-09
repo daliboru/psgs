@@ -1,27 +1,30 @@
 import { Header, Text } from "@rneui/themed";
 import React from "react";
 import { supabase } from "../../supebase";
-import Button from "../Button";
-import Icon from "../Icon";
 
-export default function HeaderComponent() {
-  const signOut = async () => {
-    await supabase.auth.signOut();
-  };
+type Props = {
+  title: string;
+  leftComponent?: React.ReactElement;
+  rightComponent?: React.ReactElement;
+};
 
+export default function HeaderComponent({
+  title,
+  rightComponent,
+  leftComponent,
+}: Props) {
   return (
     <Header
       centerComponent={
         <Text h4={true} h4Style={{ fontWeight: "bold", color: "white" }}>
-          Pijan sam, gladan sam
+          {title}
         </Text>
       }
-      rightComponent={
-        <Icon name="log-out-outline" color="white" onPress={signOut} />
-      }
+      rightComponent={rightComponent}
       rightContainerStyle={{
         justifyContent: "center",
       }}
+      leftComponent={leftComponent}
     />
   );
 }

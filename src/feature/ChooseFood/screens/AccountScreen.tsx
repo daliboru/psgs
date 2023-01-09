@@ -14,7 +14,6 @@ const AccountScreen = (props: Props) => {
       {user && (
         <ViewContainer>
           <View style={styles.container}>
-            <Text h2>Account</Text>
             <Text>Full Name: {user.user_metadata.full_name}</Text>
           </View>
         </ViewContainer>

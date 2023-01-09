@@ -1,7 +1,7 @@
 import { GOOGLE_MAPS_KEY } from "@env";
 import { Card } from "@rneui/themed";
-import React, { useEffect } from "react";
-import { Linking, ScrollView, StyleSheet, Text } from "react-native";
+import React from "react";
+import { Linking, ScrollView, Text } from "react-native";
 import { Button, ViewContainer } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import useFoodOptions from "../hooks/useFoodOptions";
@@ -13,9 +13,9 @@ import {
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.LIST_OF_FOOD_PLACES>;
 
 const ListOfPlaces = ({ route }: Props) => {
-  const { latitude, longitude, range, foodType } = route.params;
-  const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${GOOGLE_MAPS_KEY}&location=${latitude},${longitude}&rankby=distance&type=food&keyword=${foodType}&opennow`;
+  const { latitude, longitude, foodType } = route.params;
   const { location } = useCurrentLocation();
+  const url = getUrl(latitude, longitude, foodType);
   const { data, isLoading, isError } = useFoodOptions(url, location);
 
   if (isLoading) {
@@ -51,6 +51,16 @@ const ListOfPlaces = ({ route }: Props) => {
   );
 };
 
+const nearBySearchUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${GOOGLE_MAPS_KEY}&rankby=distance&opennow`;
+
+const getUrl = (latitude: number, longitude: number, foodType?: string) => {
+  const location = `${latitude},${longitude}`;
+  const url = new URL(nearBySearchUrl);
+  url.searchParams.append("location", location);
+  url.searchParams.append("keyword", foodType ? foodType : "food");
+  return url.toString();
+};
+
 const takeMeToFood = async (location: string) => {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${location}`;
   const supported = await Linking.canOpenURL(url);
@@ -68,12 +78,5 @@ const takeMeToFood = async (location: string) => {
     }
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 5,
-  },
-});
 
 export default ListOfPlaces;

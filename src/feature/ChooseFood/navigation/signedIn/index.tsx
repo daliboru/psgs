@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { Header, Icon } from "../../../../components";
+import { Icon } from "../../../../components";
 import { AccountScreen } from "../../screens";
 import ChooseFoodNavigation from "../chooseFood";
 import { SignedInScreens, SignedInTabParamList } from "./types";
@@ -12,7 +12,7 @@ export default function SignedInNavigation() {
     <Tab.Navigator
       initialRouteName={SignedInScreens.CHOOSE_FOOD}
       screenOptions={({ route }) => ({
-        header: () => <Header />,
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: string;
           if (route.name === SignedInScreens.CHOOSE_FOOD) {
@@ -31,7 +31,7 @@ export default function SignedInNavigation() {
       <Tab.Screen
         name={SignedInScreens.CHOOSE_FOOD}
         component={ChooseFoodNavigation}
-        options={{ title: "Biraj hranu" }}
+        options={{ title: "Daj hranu" }}
       />
       <Tab.Screen
         name={SignedInScreens.ACCOUNT}

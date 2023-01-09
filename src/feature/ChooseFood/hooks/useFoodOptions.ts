@@ -24,12 +24,15 @@ async function getFoodOptions(
 ) {
   const response = await fetch(url);
   const data: NearbySearchResponse = await response.json();
-  const dataWithDistance = await calculateDistance(data.results, userLocation);
+  const dataWithDistance = await addDistanceToFoodOptions(
+    data.results,
+    userLocation
+  );
   data.results = dataWithDistance;
   return data;
 }
 
-async function calculateDistance(
+async function addDistanceToFoodOptions(
   results: Array<Result>,
   userLocation: {
     latitude: number;
@@ -42,7 +45,7 @@ async function calculateDistance(
         const destinationLat = result.geometry.location.lat;
         const destinationLng = result.geometry.location.lng;
         const distanceUrlWithParams = `${distanceUrl}origins=${userLocation.latitude},${userLocation.longitude}&destinations=${destinationLat},${destinationLng}&mode=walking&key=${GOOGLE_MAPS_KEY}`;
-        const distance = await fetchDistance(distanceUrlWithParams);
+        const distance = await calculateWalkingDistance(distanceUrlWithParams);
         result.distance = distance.rows[0].elements[0].distance.text;
         result.duration = distance.rows[0].elements[0].duration.text;
       }
@@ -52,7 +55,7 @@ async function calculateDistance(
   return resultsWithDistance;
 }
 
-async function fetchDistance(url: string) {
+async function calculateWalkingDistance(url: string) {
   const response = await fetch(url);
   const data: google.maps.DistanceMatrixResponse = await response.json();
   return data;

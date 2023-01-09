@@ -12,7 +12,13 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           [SignedInScreens.CHOOSE_FOOD]: {
             screens: {
-              [ChooseFoodScreens.FOOD_CATEGORIES]: "foodCategories",
+              [ChooseFoodScreens.EATING_OPTIONS]: "eatingOptions",
+              [ChooseFoodScreens.FOOD_CATEGORIES]: {
+                path: "foodCategories/:eatingOption",
+                parse: {
+                  eatingOption: String,
+                },
+              },
               [ChooseFoodScreens.LIST_OF_FOOD_PLACES]: {
                 path: "listOfFoodPlaces/:latitude/:longitude/:range/:foodType",
                 parse: {
