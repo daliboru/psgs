@@ -1,8 +1,9 @@
 import { Avatar, Text } from "@rneui/themed";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { ViewContainer } from "../../../components";
+import { Button, ViewContainer } from "../../../components";
 import useCurrentUser from "../../../hooks/useCurrentUser";
+import signOut from "../../../api/signOut";
 
 type Props = {};
 
@@ -25,7 +26,10 @@ const AccountScreen = (props: Props) => {
               size="large"
             />
             <View style={{ marginTop: 10 }}>
-              <Text h4>{user.user_metadata.full_name}</Text>
+              <Text h4 style={{ textAlign: "center" }}>
+                {user.user_metadata.full_name}
+              </Text>
+              <Button.Clear title="Log out" onPress={signOut} />
             </View>
           </View>
         </ViewContainer>
