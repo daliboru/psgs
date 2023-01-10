@@ -19,13 +19,7 @@ async function getCurrentLocation() {
 }
 
 export default function useCurrentLocation() {
-  const { isLoading, data } = useQuery(
-    ["currentLocation"],
-    getCurrentLocation,
-    {
-      retry: false,
-    }
-  );
+  const { isLoading, data } = useQuery(["currentLocation"], getCurrentLocation);
 
   return {
     isLoading,

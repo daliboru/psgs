@@ -1,7 +1,6 @@
-import { Text } from "@rneui/themed";
 import React from "react";
 import { Linking, ScrollView, View } from "react-native";
-import { Button } from "../../../components";
+import { Button, Loader } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import { FoodCategories } from "../components";
 import {
@@ -19,7 +18,7 @@ export default function WhatEatsAloneScreen({ navigation, route }: Props) {
   } = useCurrentLocation();
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
 
   const onChooseFood = (foodType?: string) => {

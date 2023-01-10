@@ -2,7 +2,7 @@ import { GOOGLE_MAPS_KEY } from "@env";
 import { Card } from "@rneui/themed";
 import React from "react";
 import { Linking, ScrollView, Text } from "react-native";
-import { Button, ViewContainer } from "../../../components";
+import { Button, Loader, ViewContainer } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import useFoodOptions from "../hooks/useFoodOptions";
 import {
@@ -19,7 +19,7 @@ export default function ListOfEatsScreen({ route }: Props) {
   const { data, isLoading, isError } = useFoodOptions(url, location);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
 
   if (isError) {

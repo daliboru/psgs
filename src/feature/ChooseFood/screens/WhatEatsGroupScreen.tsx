@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Button } from "../../../components";
+import { Button, Loader } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import {
   ChooseFoodScreens,
@@ -64,7 +64,7 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
   } = useCurrentLocation();
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader />;
   }
 
   const [selectedFood, setSelectedFood] = React.useState<string[]>([]);
