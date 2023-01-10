@@ -1,7 +1,7 @@
 import { LinkingOptions } from "@react-navigation/native";
 import * as Linking from "expo-linking";
-import { ChooseFoodScreens } from "../feature/ChooseFood/navigation/chooseFood/types";
-import { SignedInScreens } from "../feature/ChooseFood/navigation/signedIn/types";
+import { ChooseFoodScreens } from "../features/ChooseFood/navigation/chooseFood/types";
+import { SignedInScreens } from "../features/ChooseFood/navigation/signedIn/types";
 import { RootScreens, RootStackParamList } from "./types";
 
 const linking: LinkingOptions<RootStackParamList> = {
@@ -12,19 +12,14 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           [SignedInScreens.CHOOSE_FOOD]: {
             screens: {
-              [ChooseFoodScreens.EATING_OPTIONS]: "eatingOptions",
-              [ChooseFoodScreens.FOOD_CATEGORIES]: {
-                path: "foodCategories/:eatingOption",
-                parse: {
-                  eatingOption: String,
-                },
-              },
-              [ChooseFoodScreens.LIST_OF_FOOD_PLACES]: {
-                path: "listOfFoodPlaces/:latitude/:longitude/:range/:foodType",
+              [ChooseFoodScreens.WHO_EATS]: "whoEats",
+              [ChooseFoodScreens.WHAT_EATS_ALONE]: "whatEatsAlone",
+              [ChooseFoodScreens.WHAT_EATS_GROUP]: "whatEatsGroup",
+              [ChooseFoodScreens.LIST_OF_EATS]: {
+                path: "listOfEats/:latitude/:longitude/:foodType?",
                 parse: {
                   latitude: Number,
                   longitude: Number,
-                  range: Number,
                   foodType: String,
                 },
               },
