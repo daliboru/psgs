@@ -6,27 +6,26 @@ import {
 } from "expo-location";
 
 async function getCurrentLocation() {
-  try {
-    const { status } = await requestForegroundPermissionsAsync();
-    if (status !== PermissionStatus.GRANTED) {
-      throw new Error("Permission to access location was denied");
-    }
+  const { status } = await requestForegroundPermissionsAsync();
+  if (status === PermissionStatus.GRANTED) {
     const location = await getCurrentPositionAsync({});
-    return { location, status: PermissionStatus.GRANTED };
-  } catch (error) {
-    console.log(error);
+    return { location, status };
   }
+
+  return { location: null, status };
 }
 
 export default function useCurrentLocation() {
   const { isLoading, data } = useQuery(["currentLocation"], getCurrentLocation);
 
+  const needsSettingsAction = data?.status !== PermissionStatus.GRANTED;
+
   return {
     isLoading,
     location: {
-      latitude: data?.location.coords.latitude || NaN,
-      longitude: data?.location.coords.longitude || NaN,
+      latitude: data?.location?.coords?.latitude || NaN,
+      longitude: data?.location?.coords?.longitude || NaN,
     },
-    status: data?.status,
+    needsSettingsAction,
   };
 }

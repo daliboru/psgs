@@ -1,5 +1,5 @@
-import { Divider, Image, Text } from "@rneui/themed";
-import React from "react";
+import { Dialog, Divider, Image, Text } from "@rneui/themed";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Linking,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Button, Loader } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
+import { FoodCategoriesTemp } from "../components";
 import {
   ChooseFoodScreens,
   ChooseFoodStackScreenProps,
@@ -57,66 +58,39 @@ const buttons = [
 ];
 
 export default function WhatEatsGroupScreen({ navigation }: Props) {
-  const {
-    location: { latitude, longitude },
-    status,
-    isLoading,
-  } = useCurrentLocation();
+  const [selectedFood, setSelectedFood] = useState<string[]>([]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  const [selectedFood, setSelectedFood] = React.useState<string[]>([]);
-  const onPressCheckbox = (optionName: string) => {
-    if (selectedFood.includes(optionName)) {
-      setSelectedFood(selectedFood.filter((food) => food !== optionName));
-    } else {
-      setSelectedFood([...selectedFood, optionName]);
-    }
-  };
-
-  const onChooseFood = (foodType?: string) => {
-    navigation.navigate(ChooseFoodScreens.LIST_OF_EATS, {
-      latitude,
-      longitude,
-      foodType,
-    });
-  };
+  const onPressCheckbox = useCallback(
+    (optionName: string) => {
+      setSelectedFood((prevSelectedFood) => {
+        if (prevSelectedFood.includes(optionName)) {
+          return prevSelectedFood.filter(
+            (selectedFoodOptionName) => selectedFoodOptionName !== optionName
+          );
+        } else {
+          return [...prevSelectedFood, optionName];
+        }
+      });
+    },
+    [setSelectedFood]
+  );
 
   return (
-    <ScrollView>
-      <View style={{ marginHorizontal: 5 }}>
-        {status !== "granted" && (
-          <Button.Clear
-            title="Enable location"
-            onPress={Linking.openSettings}
+    <FoodCategoriesTemp navigation={navigation}>
+      <Text>{`Selektovano: ${selectedFood}`}</Text>
+      <View style={styles.buttonsContainer}>
+        {buttons.map(({ title, image, optionName }, index) => (
+          <FoodSelectionButton
+            key={index}
+            title={title}
+            image={image}
+            optionName={optionName}
+            onPressCheckbox={onPressCheckbox}
+            selectedFood={selectedFood}
           />
-        )}
-        <Button
-          onPress={() => onChooseFood()}
-          title="Šta god, samo da je jestivo"
-          containerStyle={{
-            marginVertical: 10,
-            marginHorizontal: 5,
-          }}
-        />
-        <Divider style={{ marginBottom: 5 }} />
-        <Text>{`Selektovano: ${selectedFood}`}</Text>
-        <View style={styles.buttonsContainer}>
-          {buttons.map(({ title, image, optionName }, index) => (
-            <FoodSelectionButton
-              key={index}
-              title={title}
-              image={image}
-              optionName={optionName}
-              onPressCheckbox={onPressCheckbox}
-              selectedFood={selectedFood}
-            />
-          ))}
-        </View>
+        ))}
       </View>
-    </ScrollView>
+    </FoodCategoriesTemp>
   );
 }
 
