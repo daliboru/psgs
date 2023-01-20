@@ -10,7 +10,7 @@ import {
 
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS_ALONE>;
 
-export default function WhatEatsAloneScreen({ navigation, route }: Props) {
+export default function WhatEatsAloneScreen({ navigation }: Props) {
   const {
     location: { latitude, longitude },
   } = useCurrentLocation();

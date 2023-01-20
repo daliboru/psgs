@@ -1,6 +1,5 @@
 import { Header, Text } from "@rneui/themed";
 import React from "react";
-import { supabase } from "../../supebase";
 
 type Props = {
   title: string;

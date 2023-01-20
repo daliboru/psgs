@@ -1,11 +1,13 @@
+import BottomSheet from "@gorhom/bottom-sheet";
 import { Image, Text } from "@rneui/themed";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
+import { Button, ViewContainer } from "../../../components";
 import { FoodCategoriesTemp } from "../components";
 import { FoodTypes } from "../FoodTypes";
 import {
@@ -17,6 +19,13 @@ type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS_GROUP>;
 
 export default function WhatEatsGroupScreen({ navigation }: Props) {
   const [selectedFood, setSelectedFood] = useState<string[]>([]);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const snapPoints = useMemo(() => ["10%", "25%"], []);
+
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   const onPressCheckbox = useCallback(
     (optionName: string) => {
@@ -34,21 +43,36 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
   );
 
   return (
-    <FoodCategoriesTemp navigation={navigation}>
-      <Text>{`Selektovano: ${selectedFood}`}</Text>
-      <View style={styles.buttonsContainer}>
-        {FoodTypes.map(({ title, image, optionName }, index) => (
-          <FoodSelectionButton
-            key={index}
-            title={title}
-            image={image}
-            optionName={optionName}
-            onPressCheckbox={onPressCheckbox}
-            selectedFood={selectedFood}
-          />
-        ))}
-      </View>
-    </FoodCategoriesTemp>
+    <>
+      <FoodCategoriesTemp navigation={navigation}>
+        <Text h4 h4Style={styles.title}>
+          Selektuj i has
+        </Text>
+        <View style={styles.buttonsContainer}>
+          {FoodTypes.map(({ title, image, optionName }, index) => (
+            <FoodSelectionButton
+              key={index}
+              title={title}
+              image={image}
+              optionName={optionName}
+              onPressCheckbox={onPressCheckbox}
+              selectedFood={selectedFood}
+            />
+          ))}
+        </View>
+      </FoodCategoriesTemp>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+      >
+        <ViewContainer>
+          <Text>{`Selektovano: ${selectedFood}`}</Text>
+          <Button title="Hasss!" />
+        </ViewContainer>
+      </BottomSheet>
+    </>
   );
 }
 
@@ -95,6 +119,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  title: {
+    textAlign: "center",
+    fontWeight: "bold",
+    marginVertical: 10,
+  },
+  bottomContainer: {},
   touchableContainer: {
     width: "50%",
     padding: 5,
