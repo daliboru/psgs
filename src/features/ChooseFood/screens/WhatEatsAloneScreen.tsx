@@ -7,6 +7,8 @@ import {
   ChooseFoodScreens,
   ChooseFoodStackScreenProps,
 } from "../navigation/chooseFood/types";
+import { Divider } from "@rneui/themed";
+import { Button } from "../../../components";
 
 type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS_ALONE>;
 
@@ -24,7 +26,16 @@ export default function WhatEatsAloneScreen({ navigation }: Props) {
   };
 
   return (
-    <FoodCategoriesTemp navigation={navigation}>
+    <FoodCategoriesTemp>
+      <Button
+        onPress={() => onChooseFood()}
+        title="Šta god, samo da je jestivo"
+        containerStyle={{
+          marginVertical: 10,
+          marginHorizontal: 5,
+        }}
+      />
+      <Divider style={{ marginBottom: 5 }} />
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {FoodTypes.map(({ title, image, optionName }, index) => (
           <FoodButton

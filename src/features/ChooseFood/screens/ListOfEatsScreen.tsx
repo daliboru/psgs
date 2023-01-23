@@ -1,7 +1,7 @@
 import { GOOGLE_MAPS_KEY } from "@env";
-import { Card } from "@rneui/themed";
+import { Card, Text } from "@rneui/themed";
 import React from "react";
-import { Linking, ScrollView, Text } from "react-native";
+import { Linking, ScrollView } from "react-native";
 import { Button, Loader, ViewContainer } from "../../../components";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import useFoodOptions from "../hooks/useFoodOptions";
@@ -23,11 +23,15 @@ export default function ListOfEatsScreen({ route }: Props) {
   }
 
   if (isError) {
-    return <Text>Error</Text>;
+    return <Text>Error neki...</Text>;
   }
 
   if (data && data.status === "ZERO_RESULTS") {
-    return <Text>No results found</Text>;
+    return (
+      <ViewContainer>
+        <Text h4>Ništ nismo našli...</Text>
+      </ViewContainer>
+    );
   }
 
   return (

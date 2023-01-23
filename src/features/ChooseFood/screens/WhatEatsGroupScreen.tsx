@@ -1,13 +1,13 @@
-import BottomSheet from "@gorhom/bottom-sheet";
-import { Image, Text } from "@rneui/themed";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import { FAB, Image, Text } from "@rneui/themed";
+import React, { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
-import { Button, ViewContainer } from "../../../components";
+import { Button } from "../../../components";
+import useCurrentLocation from "../../../hooks/useCurrentLocation";
 import { FoodCategoriesTemp } from "../components";
 import { FoodTypes } from "../FoodTypes";
 import {
@@ -19,13 +19,10 @@ type Props = ChooseFoodStackScreenProps<ChooseFoodScreens.WHAT_EATS_GROUP>;
 
 export default function WhatEatsGroupScreen({ navigation }: Props) {
   const [selectedFood, setSelectedFood] = useState<string[]>([]);
-  const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => ["10%", "25%"], []);
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const {
+    location: { latitude, longitude },
+  } = useCurrentLocation();
 
   const onPressCheckbox = useCallback(
     (optionName: string) => {
@@ -42,9 +39,35 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
     [setSelectedFood]
   );
 
+  const onChooseFood = () => {
+    const foodType = selectedFood.join(",");
+    navigation.navigate(ChooseFoodScreens.LIST_OF_EATS, {
+      latitude,
+      longitude,
+      foodType,
+    });
+  };
+
   return (
     <>
-      <FoodCategoriesTemp navigation={navigation}>
+      <FoodCategoriesTemp
+        FABComponent={
+          <FAB
+            onPress={onChooseFood}
+            visible={selectedFood.length > 0}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              margin: 16,
+            }}
+            title="Haaaaasss"
+            color="white"
+            titleStyle={{ fontSize: 30, fontWeight: "bold", color: "black" }}
+            containerStyle={{ width: "100%" }}
+            buttonStyle={{ height: "100%", width: "100%" }}
+          />
+        }
+      >
         <Text h4 h4Style={styles.title}>
           Selektuj i has
         </Text>
@@ -61,17 +84,6 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
           ))}
         </View>
       </FoodCategoriesTemp>
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <ViewContainer>
-          <Text>{`Selektovano: ${selectedFood}`}</Text>
-          <Button title="Hasss!" />
-        </ViewContainer>
-      </BottomSheet>
     </>
   );
 }
