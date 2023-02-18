@@ -9,9 +9,19 @@ import {
 
 type FoodButtonProps = {
   title: string;
-  image: string;
+  image: number;
   optionName: string;
   onChooseFood: (foodType: string) => void;
+};
+
+const ButtonContent = ({ title }: { title: string }) => {
+  return (
+    <View style={styles.centredText}>
+      <Text h2 h2Style={{ fontWeight: "bold", color: "white" }}>
+        {title}
+      </Text>
+    </View>
+  );
 };
 
 const FoodButton = ({
@@ -26,19 +36,51 @@ const FoodButton = ({
       onPress={() => onChooseFood(optionName)}
     >
       <Image
-        source={{ uri: image }}
+        source={image}
         style={styles.imageItem}
         PlaceholderContent={<ActivityIndicator />}
         containerStyle={styles.imageContainer}
       />
-      <View style={styles.centredText}>
-        <Text h2 h2Style={{ fontWeight: "bold", color: "white" }}>
-          {title}
-        </Text>
-      </View>
+      <ButtonContent title={title} />
     </TouchableOpacity>
   );
 };
+
+const FoodButtonSelect = ({
+  title,
+  image,
+  optionName,
+  onPressCheckbox,
+  selectedFood,
+}: {
+  title: string;
+  image: number;
+  optionName: string;
+  onPressCheckbox: (optionName: string) => void;
+  selectedFood: string[];
+}) => (
+  <TouchableOpacity
+    style={styles.touchableContainer}
+    onPress={() => onPressCheckbox(optionName)}
+  >
+    <Image
+      source={image}
+      style={[
+        styles.imageItem,
+        {
+          backgroundColor: selectedFood.includes(optionName)
+            ? "rgba(0,0,0,0.9)"
+            : "rgba(0,0,0,0.5)",
+        },
+      ]}
+      PlaceholderContent={<ActivityIndicator />}
+      containerStyle={styles.imageContainer}
+    />
+    <ButtonContent title={title} />
+  </TouchableOpacity>
+);
+
+FoodButton.Select = FoodButtonSelect;
 
 export default FoodButton;
 

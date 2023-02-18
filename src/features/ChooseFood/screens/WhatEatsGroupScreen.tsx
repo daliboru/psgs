@@ -1,14 +1,8 @@
-import { FAB, Image, Text } from "@rneui/themed";
+import { FAB, Text } from "@rneui/themed";
 import React, { useCallback, useState } from "react";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Button } from "../../../components";
+import { StyleSheet, View } from "react-native";
 import useCurrentLocation from "../../../hooks/useCurrentLocation";
-import { FoodCategoriesTemp } from "../components";
+import { FoodButton, FoodCategoriesTemp } from "../components";
 import { FoodTypes } from "../FoodTypes";
 import {
   ChooseFoodScreens,
@@ -72,9 +66,9 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
           Selektuj i has
         </Text>
         <View style={styles.buttonsContainer}>
-          {FoodTypes.map(({ title, image, optionName }, index) => (
-            <FoodSelectionButton
-              key={index}
+          {FoodTypes.map(({ title, image, optionName }) => (
+            <FoodButton.Select
+              key={image}
               title={title}
               image={image}
               optionName={optionName}
@@ -88,44 +82,6 @@ export default function WhatEatsGroupScreen({ navigation }: Props) {
   );
 }
 
-const FoodSelectionButton = ({
-  title,
-  image,
-  optionName,
-  onPressCheckbox,
-  selectedFood,
-}: {
-  title: string;
-  image: string;
-  optionName: string;
-  onPressCheckbox: (optionName: string) => void;
-  selectedFood: string[];
-}) => (
-  <TouchableOpacity
-    onPress={() => onPressCheckbox(optionName)}
-    style={styles.touchableContainer}
-  >
-    <Image
-      source={{ uri: image }}
-      style={[
-        styles.imageItem,
-        {
-          backgroundColor: selectedFood.includes(optionName)
-            ? "rgba(0,0,0,0.9)"
-            : "rgba(0,0,0,0.5)",
-        },
-      ]}
-      PlaceholderContent={<ActivityIndicator />}
-      containerStyle={styles.imageContainer}
-    />
-    <View style={styles.centredText}>
-      <Text h2 h2Style={{ fontWeight: "bold", color: "white" }}>
-        {title}
-      </Text>
-    </View>
-  </TouchableOpacity>
-);
-
 const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
@@ -135,31 +91,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     marginVertical: 10,
-  },
-  bottomContainer: {},
-  touchableContainer: {
-    width: "50%",
-    padding: 5,
-  },
-  centredText: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  imageContainer: {
-    width: "100%",
-    height: 250,
-    borderRadius: 5,
-  },
-  imageItem: {
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    height: 250,
-    aspectRatio: 1,
-    width: "100%",
-    flex: 1,
   },
 });

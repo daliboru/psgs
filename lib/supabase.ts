@@ -1,6 +1,6 @@
+import { PROJECT_ANON_KEY, PROJECT_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient } from "@supabase/supabase-js";
-import { PROJECT_ANON_KEY, PROJECT_URL } from "@env";
 
 export const supabaseUrl = PROJECT_URL || "";
 const supabaseAnonKey = PROJECT_ANON_KEY || "";
